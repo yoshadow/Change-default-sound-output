@@ -14,7 +14,7 @@ headphones = "analog-output-headphones"
 speaker = "analog-output-lineout"
 
 def dispositivo_por_defecto():
-    stream = os.popen("pacmd list-sinks |grep -E 'active port'")
+    stream = os.popen("pactl list sinks |grep -E 'Puerto Activo'") # Cambiar <Puerto Activo> por <active port> en caso de que el sistema esté en inglés.
     output = stream.read().strip()
     return output
 
@@ -26,6 +26,7 @@ def run():
     else:
         os.system("pactl set-sink-port 0 "+headphones)
 
+    # Confirmar qué dispositivo está por defecto
     nuevo_dispositivo = dispositivo_por_defecto()
     if headphones in nuevo_dispositivo:
         nuevo_dispositivo = "Audífonos"
